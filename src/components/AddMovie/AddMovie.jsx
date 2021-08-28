@@ -15,22 +15,6 @@ export default function AddMovie() {
     const [open, setOpen] = useState(false);
     const [modalStyle] = useState(getModalStyle);
 
-    // theme class initialization
-    const formClasses = formStyles();
-    const cardClasses = cardStyles();
-    const modalClasses = modalStyles();
-
-    // content of the displayed modal
-    const cancelBody = (
-        <div style={modalStyle} className={modalClasses.paper} >
-            <h2 id="simple-modal-title">Are you sure you want to cancel your changes?</h2>
-            <div className="modalConfirmation">
-                <Button variant="contained" color="default" onClick={handleClose} style={{marginRight : '15px'}}>No</Button>
-                <Button variant="contained" color="secondary" onClick={returnHome}>Yes</Button> 
-            </div>                                                
-        </div>
-    );
-
     // modal toggles
     const handleOpen = () => {
         setOpen(true);
@@ -108,6 +92,22 @@ export default function AddMovie() {
           transform: `translate(-${top}%, -${left}%)`,
         };
     };
+
+    // theme class initialization
+    const formClasses = formStyles();
+    const cardClasses = cardStyles();
+    const modalClasses = modalStyles();
+
+    // content of the displayed modal
+    const cancelBody = (
+        <div style={modalStyle} className={modalClasses.paper} >
+            <h2 id="simple-modal-title">Are you sure you want to cancel your changes?</h2>
+            <div className="modalConfirmation">
+                <Button variant="contained" color="default" onClick={handleClose} style={{marginRight : '15px'}}>No</Button>
+                <Button variant="contained" color="secondary" onClick={returnHome}>Yes</Button> 
+            </div>                                                
+        </div>
+    );
 
     return (
         <>

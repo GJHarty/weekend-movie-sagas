@@ -10,9 +10,6 @@ function MovieList() {
     const history = useHistory();
     const movies = useSelector(store => store.movies);
 
-    // theme class initialization
-    const cardClasses = cardStyles();
-
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
@@ -45,6 +42,8 @@ function MovieList() {
           marginBottom: 12,
         },
     });
+    // theme class initialization
+    const cardClasses = cardStyles();
 
     return (
         <main>
