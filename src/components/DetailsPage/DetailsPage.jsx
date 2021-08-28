@@ -1,11 +1,12 @@
-import { Button, Card, CardContent, Container, makeStyles, Typography } from "@material-ui/core";
+import { Button, Card, CardContent, Container, makeStyles } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export default function DetailsPage() {
-    const details = useSelector(store => store.details);
-    console.log('current details:', details);
+    // const details = useSelector(store => store.details); 
     const history = useHistory();
+    const details = useSelector(store => store.persistedReducer);
+    console.log('persisted details', details);
 
     const returnHome = () => {
         history.push('/');

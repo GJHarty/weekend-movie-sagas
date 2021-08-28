@@ -11,6 +11,12 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react';
+
+
+
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
@@ -31,7 +37,7 @@ function* createMovie(action) {
 function* fetchDetails(action) {
     // go to a specific movie's details page
     try {
-        const details = yield axios.get('/api/details', {params: {id: action.payload}});
+        const details = yield axios.get(`/api/details`, {params: {id: action.payload}});
         console.log('get details:', details.data);
         yield put({ type: 'SET_DETAILS', payload: details.data });
     } catch (err) {
@@ -84,23 +90,34 @@ const details = (state = {genres: []}, action) => {
     }
 }
 
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, details);
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         details,
+        persistedReducer,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
 );
+let persistor = persistStore(storeInstance);
 
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
         <Provider store={storeInstance}>
-        <App />
+            <PersistGate loading={null} persistor={persistor}>
+                <App />
+            </PersistGate>
         </Provider>,
     document.getElementById('root')
 );
