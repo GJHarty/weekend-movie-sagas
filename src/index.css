@@ -5,10 +5,32 @@ body {
   background-image: url('./styleImages/double-bubble-outline/double-bubble-outline.png');
 }
 
-.detailContainer {
-  background-color: rgba(234, 231, 220, 0.4);
-}
-
 .detailHeader {
   color: #E85A4F;
+}
+
+.movieCard {
+  height: 100%;
+  padding-top: 5px;
+}
+
+.movieCardContent {
+  background-color: #E98074;
+}
+
+img {
+  height: 300px;
+}
+
+.descriptionField {
+  min-width: 245px;
+}
+
+.modalConfirmation {
+  text-align: right;
+  margin-right: 5px;
+}
+
+.noBtn {
+  margin-right: 10px;
 }

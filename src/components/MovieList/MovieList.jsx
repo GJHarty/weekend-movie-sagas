@@ -1,8 +1,9 @@
-import { Button } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './MovieList.css'
+import { Button, makeStyles, Card, CardContent, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 function MovieList() {
     const dispatch = useDispatch();
@@ -22,23 +23,56 @@ function MovieList() {
     };
 
     const goToAddMovie = () => {
-        history.push('/add_movie')
-    }
+        history.push('/add_movie');
+    };
+
+    const cardStyles = makeStyles({
+        root: {
+          minWidth: 275,
+        },
+        bullet: {
+          display: 'inline-block',
+          margin: '0 2px',
+          transform: 'scale(0.8)',
+        },
+        title: {
+          fontSize: 14,
+        },
+        pos: {
+          marginBottom: 12,
+        },
+    });
+      
+    const cardClasses = cardStyles();
 
     return (
         <main>
             <h1>MovieList</h1>
             <Button variant="contained" color="primary" onClick={goToAddMovie}>Add New Movie</Button>
             <section className="movies">
-                {movies.map(movie => {
-                    return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            {/* literally have no idea why onClick={(movie) => goToDetails(movie.id)} returns undefined had to use a non-react way to solve */}
-                            <img id={movie.id} onClick={(event) => fetchDetails(event.target.id)} src={movie.poster} alt={movie.title}/>
-                        </div>
-                    );
-                })}
+                <Grid container spacing={3} alignItems="center" justify="center">
+                    {movies.map(movie => {
+                        return (
+                            <Grid item xs={2}>
+                                <Card className={cardClasses.root, "movieCard"}>
+                                    <CardContent className="movieCardContent">
+                                        <Typography variant="h5" component="h2">
+                                            {movie.title}
+                                        </Typography>
+                                        <Typography variant="body2" component="p">
+                                            <img 
+                                                id={movie.id} 
+                                                onClick={(event) => fetchDetails(event.target.id)} 
+                                                src={movie.poster} alt={movie.title}
+                                            />
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+                
             </section>
         </main>
 
