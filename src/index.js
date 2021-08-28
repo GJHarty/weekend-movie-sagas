@@ -98,11 +98,11 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, details);
 
 // Create one store that all components can use
-const storeInstance = createStore(
+let storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        details,
+        /* details, */
         persistedReducer,
     }),
     // Add sagaMiddleware to our store

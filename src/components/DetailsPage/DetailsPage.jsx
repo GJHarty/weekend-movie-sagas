@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export default function DetailsPage() {
-    // const details = useSelector(store => store.details); 
     const history = useHistory();
     const details = useSelector(store => store.persistedReducer);
     console.log('persisted details', details);
