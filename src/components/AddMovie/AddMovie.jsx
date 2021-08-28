@@ -1,23 +1,29 @@
 import { useHistory } from "react-router-dom";
-import { Button, Container, makeStyles, TextField, TextareaAutosize, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Button, Container, makeStyles, TextField, 
+            TextareaAutosize, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { useState } from 'react';
+import { useDispatch } from "react-redux";
 
 export default function AddMovie() {
     const history = useHistory();
-    const [genre, setGenre] = useState('');
+    const dispatch = useDispatch();
+    const [title, setTitle] = useState('Pacific Rim');
+    const [poster, setPoster] = useState('https://upload.wikimedia.org/wikipedia/en/f/f3/Pacific_Rim_FilmPoster.jpeg');
+    const [description, setDescription] = useState('Big Robots');
+    const [genre, setGenre] = useState(1);
+
 
     const returnHome = () => {
         history.push('/');
     }
 
-    const handleGenreChange = (event) => {
-        console.log(event.target.value);
-        setGenre(event.target.value);
-    }
-
     const saveMovie = () => {
-        console.log('Saving Movie');
-    }
+        console.log('Saving Movie', title, poster, description, genre);
+        dispatch({
+            type: 'CREATE_MOVIE',
+            payload: {title, poster, description, genre_id: genre},
+        });
+    };
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -35,32 +41,37 @@ export default function AddMovie() {
             <h1>Add Movie</h1>
             <div>
                 <Container className="formContainer" maxWidth="md">
-                    <FormControl className={classes.root} noValidate autoComplete="off">
-                        <TextField id="title" label="Title" />
-                        <TextField id="poster" label="Poster URL" />
-                        <TextareaAutosize aria-label="minimum height" minRows={5} placeholder="Description" />
+                    <FormControl className={classes.root} noValidate autoComplete="off" >
+                        <TextField id="title" label="Title" value={title} onChange={(event) => setTitle(event.target.value)}/>
+                        <TextField id="poster" label="Poster Image URL" value={poster} onChange={(event) => setPoster(event.target.value)}/>
+                        <TextareaAutosize 
+                            aria-label="minimum height" 
+                            minRows={5} placeholder="Description" 
+                            value={description} 
+                            onChange={(event) => setDescription(event.target.value)}/>
+                        {/* Bundled up the genre selector into its own form to allow label to show properly */}
                         <FormControl variant="filled" className={classes.formControl}>
                             <InputLabel id="genre-select-label">Genre</InputLabel>
                             <Select
                                 labelId="genre-select-label"
                                 id="genre-select"
                                 value={genre}
-                                onChange={handleGenreChange}
+                                onChange={(event) => setGenre(event.target.value)}
                                 label="Genre"
                             >
-                                <MenuItem value={'Adventure'}>Adventure</MenuItem>
-                                <MenuItem value={'Animated'}>Animated</MenuItem>
-                                <MenuItem value={'Biographical'}>Biographical</MenuItem>
-                                <MenuItem value={'Comedy'}>Comedy</MenuItem>
-                                <MenuItem value={'Disaster'}>Disaster</MenuItem>
-                                <MenuItem value={'Drama'}>Drama</MenuItem>
-                                <MenuItem value={'Epic'}>Epic</MenuItem>
-                                <MenuItem value={'Fantasy'}>Fantasy</MenuItem>
-                                <MenuItem value={'Musical'}>Musical</MenuItem>
-                                <MenuItem value={'Romantic'}>Romantic</MenuItem>
-                                <MenuItem value={'Science Fiction'}>Science Fiction</MenuItem>
-                                <MenuItem value={'Space-Opera'}>Space Opera</MenuItem>
-                                <MenuItem value={'Superhero'}>Superhero</MenuItem>
+                                <MenuItem value={1}>Adventure</MenuItem>
+                                <MenuItem value={2}>Animated</MenuItem>
+                                <MenuItem value={3}>Biographical</MenuItem>
+                                <MenuItem value={4}>Comedy</MenuItem>
+                                <MenuItem value={5}>Disaster</MenuItem>
+                                <MenuItem value={6}>Drama</MenuItem>
+                                <MenuItem value={7}>Epic</MenuItem>
+                                <MenuItem value={8}>Fantasy</MenuItem>
+                                <MenuItem value={9}>Musical</MenuItem>
+                                <MenuItem value={10}>Romantic</MenuItem>
+                                <MenuItem value={11}>Science Fiction</MenuItem>
+                                <MenuItem value={12}>Space Opera</MenuItem>
+                                <MenuItem value={13}>Superhero</MenuItem>
                             </Select>
                         </FormControl>
                         <Button variant="contained" color="primary" onClick={saveMovie}>Save</Button>
