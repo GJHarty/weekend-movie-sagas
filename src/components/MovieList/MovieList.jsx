@@ -13,7 +13,7 @@ function MovieList() {
     const fetchDetails = (movieId) => {
         dispatch({
             type: 'FETCH_DETAILS',
-            payload: movieId
+            payload: movieId,
         })
     };
 

@@ -20,7 +20,7 @@ function* rootSaga() {
 function* fetchDetails(action) {
     // go to a specific movies details page
     try {
-        const detailsPage = yield axios.get('/api/movie/details', {params: action.payload});
+        const detailsPage = yield axios.get('/api/details', {params: {id: action.payload}});
         yield put({ type: 'SET_DETAILS', payload: detailsPage.data });
     } catch (err) {
         console.log('fetchDetails error', err);
@@ -33,9 +33,8 @@ function* fetchAllMovies() {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
-
-    } catch {
-        console.log('get all error');
+    } catch (err) {
+        console.log('get all error', err);
     }
         
 }
@@ -78,6 +77,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        details,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
