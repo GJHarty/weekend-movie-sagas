@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -20,9 +21,14 @@ function MovieList() {
         history.push('/details');
     };
 
+    const goToAddMovie = () => {
+        history.push('/add_movie')
+    }
+
     return (
         <main>
             <h1>MovieList</h1>
+            <Button variant="contained" color="primary" onClick={goToAddMovie}>Add New Movie</Button>
             <section className="movies">
                 {movies.map(movie => {
                     return (
