@@ -1,9 +1,7 @@
 # Project Name
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+Weekend Movie Sagas
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
-
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+This app allows users to view movies and other data along with the movies. On page load the user will be able to see a list of all movies which have been entered into the database. They are able to click on a movie poster in order to see more information about that movie. If a user wants to, they are also able to add a movie into the database. 
