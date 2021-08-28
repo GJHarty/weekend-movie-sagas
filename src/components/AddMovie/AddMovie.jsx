@@ -11,9 +11,9 @@ export default function AddMovie() {
     const [title, setTitle] = useState('');
     const [poster, setPoster] = useState('');
     const [description, setDescription] = useState('');
-    const [genre, setGenre] = useState(0);
+    const [genre, setGenre] = useState('');
     const [open, setOpen] = useState(false);
-    const [modalStyle] = React.useState(getModalStyle);
+    const [modalStyle] = useState(getModalStyle);
 
     const handleOpen = () => {
         setOpen(true);
@@ -28,11 +28,16 @@ export default function AddMovie() {
     }
 
     const saveMovie = () => {
-        console.log('Saving Movie', title, poster, description, genre);
-        dispatch({
-            type: 'CREATE_MOVIE',
-            payload: {title, poster, description, genre_id: genre},
-        });
+        // validate our inputs before calling a saga dispatch
+        if (!title || !poster || !description || !genre || genre === 0){
+            alert('Please make sure all fields are completed before saving.');
+        } else {
+            dispatch({
+                type: 'CREATE_MOVIE',
+                payload: {title, poster, description, genre_id: genre},
+            });
+            returnHome();
+        }
     };
 
     const formStyles = makeStyles((theme) => ({
@@ -104,9 +109,9 @@ export default function AddMovie() {
         <>
             <h1>Add Movie</h1>
             <div>
-                <Container className="formContainer" maxWidth="md">
-                    <Card className={cardClasses.root}>
-                        <CardContent>
+                <Container className="formContainer" maxWidth="sm">
+                    <Card className={cardClasses.root} >
+                        <CardContent className={"addMovieCardContent"}>
                             <FormControl className={formClasses.root} noValidate autoComplete="off" >
                             <TextField id="title" label="Title" value={title} onChange={(event) => setTitle(event.target.value)}/>
                             <TextField id="poster" label="Poster Image URL" value={poster} onChange={(event) => setPoster(event.target.value)}/>
@@ -141,7 +146,7 @@ export default function AddMovie() {
                                         <MenuItem value={13}>Superhero</MenuItem>
                                     </Select>
                                 </FormControl>
-                            <div alignItems="center" justify="center">
+                            <div justifycontent="center">
                                 <Button variant="contained" color="default" onClick={handleOpen} style={{marginRight : '15px'}}>Cancel</Button>
                                 <Modal
                                     open={open}

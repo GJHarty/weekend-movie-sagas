@@ -48,16 +48,16 @@ function MovieList() {
     return (
         <main>
             <h1>MovieList</h1>
-            <Button variant="contained" color="primary" onClick={goToAddMovie}>Add New Movie</Button>
+            <Button variant="contained" color="primary" onClick={goToAddMovie} style={{marginBottom: '20px'}}>Add New Movie</Button>
             <section className="movies">
-                <Grid container spacing={3} alignItems="center" justify="center">
+                <Grid container spacing={3} justifycontent="center">
                     {movies.map(movie => {
                         return (
-                            <Grid item xs={2}>
+                            <Grid item xs={2} key={movie.id}>
                                 <Card className={cardClasses.root, "movieCard"}>
                                     <CardContent className="movieCardContent">
-                                        <Typography variant="h5" component="h2">
-                                            {movie.title}
+                                        <Typography  variant="h5" component="h2">
+                                            <p className="movieTitleDisplay">{movie.title}</p>
                                         </Typography>
                                         <Typography variant="body2" component="p">
                                             <img 

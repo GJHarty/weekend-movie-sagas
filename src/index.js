@@ -22,6 +22,7 @@ function* createMovie(action) {
     // submit new movie information to database
     try {
         yield axios.post('api/movie', action.payload);
+        fetchAllMovies();
     } catch (err) {
         console.log('createMovie error', err);
     }
@@ -98,10 +99,8 @@ const storeInstance = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-    <React.StrictMode>
         <Provider store={storeInstance}>
         <App />
-        </Provider>
-    </React.StrictMode>,
+        </Provider>,
     document.getElementById('root')
 );
