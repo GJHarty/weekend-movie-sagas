@@ -29,7 +29,7 @@ function* createMovie(action) {
 }
 
 function* fetchDetails(action) {
-    // go to a specific movies details page
+    // go to a specific movie's details page
     try {
         const details = yield axios.get('/api/details', {params: {id: action.payload}});
         console.log('get details:', details.data);

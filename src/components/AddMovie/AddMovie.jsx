@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { Button, Container, makeStyles, TextField, 
             TextareaAutosize, FormControl, InputLabel, 
-                Select, MenuItem, Card, CardContent, Modal, Box } from '@material-ui/core';
+                Select, MenuItem, Card, CardContent, Modal } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 
@@ -15,6 +15,23 @@ export default function AddMovie() {
     const [open, setOpen] = useState(false);
     const [modalStyle] = useState(getModalStyle);
 
+    // theme class initialization
+    const formClasses = formStyles();
+    const cardClasses = cardStyles();
+    const modalClasses = modalStyles();
+
+    // content of the displayed modal
+    const cancelBody = (
+        <div style={modalStyle} className={modalClasses.paper} >
+            <h2 id="simple-modal-title">Are you sure you want to cancel your changes?</h2>
+            <div className="modalConfirmation">
+                <Button variant="contained" color="default" onClick={handleClose} style={{marginRight : '15px'}}>No</Button>
+                <Button variant="contained" color="secondary" onClick={returnHome}>Yes</Button> 
+            </div>                                                
+        </div>
+    );
+
+    // modal toggles
     const handleOpen = () => {
         setOpen(true);
     };
@@ -23,15 +40,18 @@ export default function AddMovie() {
         setOpen(false);
     };
 
+    // navigate to home page after a cancel or save
     const returnHome = () => {
         history.push('/');
-    }
+    };
 
+    // handler for data submission
     const saveMovie = () => {
         // validate our inputs before calling a saga dispatch
         if (!title || !poster || !description || !genre || genre === 0){
             alert('Please make sure all fields are completed before saving.');
         } else {
+            // send our data to saga in order to post to db
             dispatch({
                 type: 'CREATE_MOVIE',
                 payload: {title, poster, description, genre_id: genre},
@@ -40,6 +60,7 @@ export default function AddMovie() {
         }
     };
 
+    // grouping our theme initializers here
     const formStyles = makeStyles((theme) => ({
         root: {
           '& > *': {
@@ -47,9 +68,7 @@ export default function AddMovie() {
             width: '25ch',
           },
         },
-    }));
-
-    const formClasses = formStyles();
+    })); 
 
     const cardStyles = makeStyles({
         root: {
@@ -67,8 +86,6 @@ export default function AddMovie() {
           marginBottom: 12,
         },
     });
-      
-    const cardClasses = cardStyles();
 
     const modalStyles = makeStyles((theme) => ({
         paper: {
@@ -81,8 +98,6 @@ export default function AddMovie() {
         },
     }));
 
-    const modalClasses = modalStyles();
-
     function getModalStyle() {
         const top = 50;
         const left = 50;
@@ -93,17 +108,6 @@ export default function AddMovie() {
           transform: `translate(-${top}%, -${left}%)`,
         };
     };
-
-    const cancelBody = (
-        <div style={modalStyle} className={modalClasses.paper} >
-            <h2 id="simple-modal-title">Are you sure you want to cancel your changes?</h2>
-            <div className="modalConfirmation">
-                <Button variant="contained" color="default" onClick={handleClose} style={{marginRight : '15px'}}>No</Button>
-                <Button variant="contained" color="secondary" onClick={returnHome}>Yes</Button> 
-            </div>                                                
-        </div>
-    );
-
 
     return (
         <>

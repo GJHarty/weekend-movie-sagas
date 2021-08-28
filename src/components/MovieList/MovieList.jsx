@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import './MovieList.css'
+import './MovieList.css';
 import { Button, makeStyles, Card, CardContent, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
@@ -9,6 +9,9 @@ function MovieList() {
     const dispatch = useDispatch();
     const history = useHistory();
     const movies = useSelector(store => store.movies);
+
+    // theme class initialization
+    const cardClasses = cardStyles();
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
@@ -42,8 +45,6 @@ function MovieList() {
           marginBottom: 12,
         },
     });
-      
-    const cardClasses = cardStyles();
 
     return (
         <main>
@@ -72,10 +73,8 @@ function MovieList() {
                         );
                     })}
                 </Grid>
-                
             </section>
         </main>
-
     );
 }
 

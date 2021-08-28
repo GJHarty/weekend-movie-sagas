@@ -20,6 +20,7 @@ router.get('/', (req, res) => {
     pool.query(sqlQuery, [movieId])
         .then(dbRes => {
             console.log('DB Query succeeded');
+            // send back data to be stored in our details reducer
             res.send(dbRes.rows);
         })
         .catch(err => {
