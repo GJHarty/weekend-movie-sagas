@@ -3,13 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 
 function MovieList() {
-
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
+
+    const fetchDetails = (movieId) => {
+        dispatch({
+            type: 'FETCH_DETAILS',
+            payload: movieId
+        })
+    };
 
     return (
         <main>
@@ -19,7 +25,8 @@ function MovieList() {
                     return (
                         <div key={movie.id} >
                             <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title}/>
+                            {/* literally have no idea why onClick={(movie) => goToDetails(movie.id)} returns undefined had to use a non-react way to solve */}
+                            <img id={movie.id} onClick={(event) => fetchDetails(event.target.id)} src={movie.poster} alt={movie.title}/>
                         </div>
                     );
                 })}
