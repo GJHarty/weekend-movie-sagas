@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
                         GROUP BY "movieTitle", "moviePoster", "movieDesc";`;
     pool.query(sqlQuery, [movieId])
         .then(dbRes => {
-            console.log(dbRes.rows);
+            console.log('DB Query succeeded');
             res.send(dbRes.rows);
         })
         .catch(err => {

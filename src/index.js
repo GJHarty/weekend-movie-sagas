@@ -20,7 +20,8 @@ function* rootSaga() {
 function* fetchDetails(action) {
     // go to a specific movies details page
     try {
-        const detailsPage = yield axios.get('/api/details', {params: {id: action.payload}});
+        const details = yield axios.get('/api/details', {params: {id: action.payload}});
+        console.log('get details:', details.data);
         yield put({ type: 'SET_DETAILS', payload: detailsPage.data });
     } catch (err) {
         console.log('fetchDetails error', err);
