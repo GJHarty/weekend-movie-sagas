@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -13,8 +13,18 @@ export default function DetailsPage() {
 
     return (
         <>
-            <h1>Movie Details</h1>
-            <Button variant="contained" color="default" onClick={returnHome}>Back</Button>
+            <Container className="detailContainer" maxWidth="md">
+                <h1 className="detailHeader">Movie Details</h1>
+                <h2>{details.movieTitle}</h2>
+                <img src={details.moviePoster} />
+                <p>{details.movieDesc}</p>
+                <h4>Genres: 
+                    {details.genres.map(genre => (
+                        <p key={genre}>{genre}</p>
+                    ))}
+                </h4>
+                <Button variant="contained" color="default" onClick={returnHome}>Back</Button>
+            </Container>
         </>
     )
 }

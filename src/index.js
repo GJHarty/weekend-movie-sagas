@@ -64,10 +64,10 @@ const genres = (state = [], action) => {
 }
 
 // Used to store focused movie details
-const details = (state = {}, action) => {
+const details = (state = {genres: []}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
-            return action.payload;
+            return action.payload[0];
         default:
             return state;
     }
