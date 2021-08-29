@@ -67,10 +67,7 @@ function MovieList() {
                                             />
                                         </Typography>
                                         <Typography variant="body2" component="div">
-                                            <div /* style={{float: 'left'}} */>
-                                                Genres:
-                                            </div>
-                                            <div /* style={{float: 'right'}} */>
+                                            <div>
                                                 {movie.genres.map(genre => (
                                                     <p key={genre}>{genre}</p>
                                                 ))}
