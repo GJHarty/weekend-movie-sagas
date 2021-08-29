@@ -53,18 +53,28 @@ function MovieList() {
                 <Grid container spacing={3} justifycontent="center">
                     {movies.map(movie => {
                         return (
-                            <Grid item xs={2} key={movie.id}>
+                            <Grid item xs={2} key={movie.movieId}>
                                 <Card className={cardClasses.root, "movieCard"}>
                                     <CardContent className="movieCardContent">
                                         <Typography  variant="h5" component="h2">
-                                            <p className="movieTitleDisplay">{movie.title}</p>
+                                            <p className="movieTitleDisplay">{movie.movieTitle}</p>
                                         </Typography>
                                         <Typography variant="body2" component="p">
                                             <img 
-                                                id={movie.id} 
+                                                id={movie.movieId} 
                                                 onClick={(event) => fetchDetails(event.target.id)} 
-                                                src={movie.poster} alt={movie.title}
+                                                src={movie.moviePoster} alt={movie.movieTitle}
                                             />
+                                        </Typography>
+                                        <Typography variant="body2" component="div">
+                                            <div /* style={{float: 'left'}} */>
+                                                Genres:
+                                            </div>
+                                            <div /* style={{float: 'right'}} */>
+                                                {movie.genres.map(genre => (
+                                                    <p key={genre}>{genre}</p>
+                                                ))}
+                                            </div>
                                         </Typography>
                                     </CardContent>
                                 </Card>
