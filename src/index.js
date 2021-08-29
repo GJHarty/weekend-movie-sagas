@@ -10,12 +10,13 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+// import redux-persist
+import { persistStore } from 'redux-persist';
 
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { PersistGate } from 'redux-persist/integration/react';
-
-
+// import reducers
+import movies from './redux/reducers/movie.reducer';
+import persistedReducer from './redux/reducers/persisted.reducer';
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -71,49 +72,10 @@ function* fetchAllMovies() {
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Used to store movies returned from the server
-const movies = (state = [], action) => {
-    switch (action.type) {
-        case 'SET_MOVIES':
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-// Used to store the movie genres
-const genres = (state = [], action) => {
-    switch (action.type) {
-        case 'SET_GENRES':
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
-// Used to store focused movie details
-const details = (state = {genres: []}, action) => {
-    switch (action.type) {
-        case 'SET_DETAILS':
-            return action.payload[0];
-        default:
-            return state;
-    }
-}
-
-const persistConfig = {
-    key: 'root',
-    storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, details);
-
 // Create one store that all components can use
 let storeInstance = createStore(
     combineReducers({
         movies,
-        genres,
-        /* details, */
         persistedReducer,
     }),
     // Add sagaMiddleware to our store
