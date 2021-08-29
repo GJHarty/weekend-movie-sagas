@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import './MovieList.css';
 import { Button, makeStyles, Card, CardContent, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import SearchBar from '../SearchBar/SearchBar';
 
 function MovieList() {
     const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function MovieList() {
     return (
         <main>
             <h1>MovieList</h1>
+            <SearchBar />
             <Button variant="contained" color="primary" onClick={goToAddMovie} style={{marginBottom: '20px'}}>Add New Movie</Button>
             <section className="movies">
                 <Grid container spacing={3} justifycontent="center">
@@ -67,9 +69,9 @@ function MovieList() {
                                             />
                                         </Typography>
                                         <Typography variant="body2" component="div">
-                                            <div>
+                                            <div className="genreDiv">
                                                 {movie.genres.map(genre => (
-                                                    <p key={genre}>{genre}</p>
+                                                    <p className="genre" key={genre}>{genre}</p>
                                                 ))}
                                             </div>
                                         </Typography>

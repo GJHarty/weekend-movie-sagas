@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const movieRouter = require('./routes/movie.router.js');
-const genreRouter = require('./routes/genre.router.js');
 const detailsRouter = require('./routes/details.router.js');
 const port = process.env.PORT || 5000;
 
@@ -12,7 +11,6 @@ app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
 app.use('/api/movie', movieRouter);
-app.use('/api/genre', genreRouter);
 app.use('/api/details', detailsRouter);
 
 /** ---------- START SERVER ---------- **/
