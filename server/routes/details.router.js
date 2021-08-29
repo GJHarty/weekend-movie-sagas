@@ -6,6 +6,7 @@ const pool = require('../modules/pool');
 router.get('/', (req, res) => {
     const movieId = req.query.id;
     const sqlQuery =    `SELECT 
+                            "movies"."id" as "movieId",
                             "movies"."title" as "movieTitle",
                             "movies"."poster" as "moviePoster",
                             "movies"."description" as "movieDesc",
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
                         JOIN "genres"
                             ON "genres"."id" = "movies_genres"."genre_id"
                         WHERE "movies"."id"=$1
-                        GROUP BY "movieTitle", "moviePoster", "movieDesc";`;
+                        GROUP BY "movieId", "movieTitle", "moviePoster", "movieDesc";`;
     pool.query(sqlQuery, [movieId])
         .then(dbRes => {
             console.log('DB Query succeeded');

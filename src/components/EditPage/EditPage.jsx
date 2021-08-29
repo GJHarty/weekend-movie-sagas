@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, makeStyles, TextField, 
             TextareaAutosize, FormControl, Card, CardContent, 
                 Modal, Typography } from '@material-ui/core';
@@ -12,8 +12,28 @@ export default function EditPage() {
 
     const [open, setOpen] = useState(false);
     const [modalStyle] = useState(getModalStyle);
-    const [title, setTitle] = useState(details.movieTitle);
-    const [description, setDescription] = useState(details.movieDesc);
+    const [id, setId] = useState(0);
+    const [newTitle, setNewTitle] = useState('');
+    const [newDescription, setNewDescription] = useState('');
+
+    useEffect(() => {
+        setId(details.movieId);
+        setNewTitle(details.movieTitle);
+        setNewDescription(details.movieDesc);
+    }, []);
+
+    // send a save request to sagas so we can update our information in the database
+    const saveMovie = () => {
+        dispatch({
+            type: 'SAVE_MOVIE',
+            payload: {
+                id,
+                title: newTitle,
+                description: newDescription,
+            } 
+        });
+        returnHome();
+    };
 
     // modal toggles
     const handleOpen = () => {
@@ -104,13 +124,13 @@ export default function EditPage() {
                             Please enter any changes you would like to make.
                         </Typography>
                         <FormControl className={formClasses.root} noValidate autoComplete="off" >
-                            <TextField id="title" label="Title" value={title} onChange={(event) => setTitle(event.target.value)}/>
+                            <TextField id="title" label="Title" value={newTitle} onChange={(event) => setNewTitle(event.target.value)}/>
                             <TextareaAutosize
                                 className="descriptionField" 
                                 aria-label="minimum height" 
                                 minRows={5} placeholder="Description" 
-                                value={description} 
-                                onChange={(event) => setDescription(event.target.value)}
+                                value={newDescription} 
+                                onChange={(event) => setNewDescription(event.target.value)}
                             />
                             <div justifycontent="center">
                                 <Button variant="contained" color="default" onClick={handleOpen} style={{marginRight : '15px'}}>Cancel</Button>
@@ -122,7 +142,7 @@ export default function EditPage() {
                                 >
                                     {cancelBody}   
                                 </Modal>
-                                <Button variant="contained" color="primary" /* onClick={saveMovie} */>Save</Button>
+                                <Button variant="contained" color="primary" onClick={saveMovie}>Save</Button>
                             </div>
                         </FormControl>
                     </CardContent>

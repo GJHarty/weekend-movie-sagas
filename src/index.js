@@ -22,6 +22,17 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_DETAILS', fetchDetails);
     yield takeEvery('CREATE_MOVIE', createMovie);
+    yield takeEvery('SAVE_MOVIE', saveMovie);
+}
+
+function* saveMovie(action) {
+    // submit updated title and/or description to the db
+    try {
+        yield axios.put(`/api/movie/${action.payload.id}`, action.payload);
+        fetchAllMovies();
+    } catch (err) {
+        console.log('saveMovie error', err);
+    }
 }
 
 function* createMovie(action) {

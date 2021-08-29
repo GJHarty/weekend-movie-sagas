@@ -68,7 +68,6 @@ export default function DetailsPage() {
                         </Button>  
                     </CardContent>
                 </Card>
-                
             </Container>
         </>
     )
