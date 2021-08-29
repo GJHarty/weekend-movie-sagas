@@ -49,8 +49,12 @@ function MovieList() {
     return (
         <main>
             <h1>MovieList</h1>
-            <SearchBar />
+            <div className="searchBarDiv">
+                <SearchBar />
+            </div>
+            <div>
             <Button variant="contained" color="primary" onClick={goToAddMovie} style={{marginBottom: '20px'}}>Add New Movie</Button>
+            </div>
             <section className="movies">
                 <Grid container spacing={3} justifycontent="center">
                     {movies.map(movie => {
@@ -63,6 +67,7 @@ function MovieList() {
                                         </Typography>
                                         <Typography variant="body2" component="p">
                                             <img 
+                                                className="cardImg"
                                                 id={movie.movieId} 
                                                 onClick={(event) => fetchDetails(event.target.id)} 
                                                 src={movie.moviePoster} alt={movie.movieTitle}

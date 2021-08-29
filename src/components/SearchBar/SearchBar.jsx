@@ -1,18 +1,44 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import AutoComplete from '@material-ui/lab/Autocomplete';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 export default function SearchBar() {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const movies = useSelector(store => store.movies);
+    const [searchValue, setSearchValue] = useState(movies[0]);
+
+    const fetchDetails = () => {
+        console.log('testing button');
+        for (let movie of movies) {
+            if (Object.values(movie).indexOf(searchValue.movieTitle) > -1) {
+                dispatch({
+                    type: 'FETCH_DETAILS',
+                    payload: movie.movieId,
+                });
+                history.push('/details');
+            };
+        };
+    };
 
     return (
-        <AutoComplete
-            id="search-bar"
-            options={movies}
-            getOptionLabel={(option) => option.movieTitle}
-            style={{width: 300}}
-            renderInput={(params) => <TextField {...params} label="Search" variant="outlined" />}
-        />
+        <>
+            <form>
+                <AutoComplete
+                    id="search-bar"
+                    options={movies}
+                    getOptionLabel={(option) => option.movieTitle}
+                    style={{width: 300}}
+                    renderInput={(params) => <TextField {...params} label="Search" variant="outlined" />}
+                    value={searchValue}
+                    onChange={(event, newValue) => setSearchValue(newValue)}
+                />
+                <Button variant="contained" color="default" style={{float: 'left'}} onClick={fetchDetails} >Submit</Button> 
+            </form>
+        </>
     )
 }
