@@ -59,7 +59,7 @@ function MovieList() {
                 <Grid container spacing={3} justifycontent="center">
                     {movies.map(movie => {
                         return (
-                            <Grid item xs={2} key={movie.movieId}>
+                            <Grid item xs={3} key={movie.movieId}>
                                 <Card className={cardClasses.root, "movieCard"}>
                                     <CardContent className="movieCardContent">
                                         <Typography  variant="h5" component="h2">

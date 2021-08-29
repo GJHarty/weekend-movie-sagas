@@ -1,3 +1,9 @@
+/* 
+Currently the AutoComplete From throws a warning. After doing some research
+I was unable to figure out how to set up the default values in a way that 
+prevents the issue. It does not affect the functionality of the components.
+*/
+
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import AutoComplete from '@material-ui/lab/Autocomplete';
