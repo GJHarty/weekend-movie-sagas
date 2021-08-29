@@ -11,6 +11,10 @@ export default function DetailsPage() {
         history.push('/');
     };
 
+    const goToEditPage = () => {
+        history.push('/edit');
+    };
+
     const cardStyles = makeStyles({
         root: {
           minWidth: 275,
@@ -44,9 +48,27 @@ export default function DetailsPage() {
                                 <p key={genre}>{genre}</p>
                             ))}
                         </h4>
-                        <Button variant="contained" color="default" onClick={returnHome}>Back</Button>    
+                        <Button 
+                            className="backBtn" 
+                            style={{marginBottom: '10px'}} 
+                            variant="contained" 
+                            color="default" 
+                            onClick={returnHome}
+                        >
+                            Back
+                        </Button> 
+                        <Button 
+                            className="editBtn" 
+                            style={{marginBottom: '10px'}} 
+                            variant="contained" 
+                            color="primary"
+                            onClick={goToEditPage}
+                        >
+                            Edit
+                        </Button>  
                     </CardContent>
                 </Card>
+                
             </Container>
         </>
     )

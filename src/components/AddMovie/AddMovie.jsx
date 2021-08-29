@@ -117,14 +117,15 @@ export default function AddMovie() {
                     <Card className={cardClasses.root} >
                         <CardContent className={"addMovieCardContent"}>
                             <FormControl className={formClasses.root} noValidate autoComplete="off" >
-                            <TextField id="title" label="Title" value={title} onChange={(event) => setTitle(event.target.value)}/>
-                            <TextField id="poster" label="Poster Image URL" value={poster} onChange={(event) => setPoster(event.target.value)}/>
-                            <TextareaAutosize
-                                className="descriptionField" 
-                                aria-label="minimum height" 
-                                minRows={5} placeholder="Description" 
-                                value={description} 
-                                onChange={(event) => setDescription(event.target.value)}/>
+                                <TextField id="title" label="Title" value={title} onChange={(event) => setTitle(event.target.value)}/>
+                                <TextField id="poster" label="Poster Image URL" value={poster} onChange={(event) => setPoster(event.target.value)}/>
+                                <TextareaAutosize
+                                    className="descriptionField" 
+                                    aria-label="minimum height" 
+                                    minRows={5} placeholder="Description" 
+                                    value={description} 
+                                    onChange={(event) => setDescription(event.target.value)}
+                                />
                                 {/* Bundled up the genre selector into its own form to allow label to show properly */}
                                 <FormControl variant="filled" className={formClasses.formControl}>
                                     <InputLabel id="genre-select-label">Genre</InputLabel>
@@ -150,19 +151,19 @@ export default function AddMovie() {
                                         <MenuItem value={13}>Superhero</MenuItem>
                                     </Select>
                                 </FormControl>
-                            <div justifycontent="center">
-                                <Button variant="contained" color="default" onClick={handleOpen} style={{marginRight : '15px'}}>Cancel</Button>
-                                <Modal
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="simple-modal-title"
-                                    aria-describedby="simple-modal-description"
-                                >
-                                    {cancelBody}   
-                                </Modal>
-                                <Button variant="contained" color="primary" onClick={saveMovie}>Save</Button>
-                            </div>
-                        </FormControl>
+                                <div justifycontent="center">
+                                    <Button variant="contained" color="default" onClick={handleOpen} style={{marginRight : '15px'}}>Cancel</Button>
+                                    <Modal
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="simple-modal-title"
+                                        aria-describedby="simple-modal-description"
+                                    >
+                                        {cancelBody}   
+                                    </Modal>
+                                    <Button variant="contained" color="primary" onClick={saveMovie}>Save</Button>
+                                </div>
+                            </FormControl>
                         </CardContent>
                     </Card>
                 </Container>

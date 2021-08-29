@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
                             "movies"."description" as "movieDesc",
                             ARRAY_AGG ("genres".name) "genres"
                         FROM "movies"
-                        JOIN "movies_genres" 
+                        JOIN "movies_genres"
                             ON "movies_genres"."movie_id" = "movies"."id"
                         JOIN "genres"
                             ON "genres"."id" = "movies_genres"."genre_id"
